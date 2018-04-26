@@ -74,8 +74,8 @@ p {
     z-index: 10000;
     transition: all 0.2s ease-in-out;
     height: 80px;
-    background-color:transparent;  
-    
+    background-color:transparent;
+
     text-align: center;
     line-height: 40px;
 }
@@ -120,7 +120,7 @@ p {
 }
 .navbar-brand .logo{
 	margin-top: 22px;
-	background-image: url(../img/white_logo.png);
+	background-image: url(../img/android_logo_white.svg);
 	display: inline-block;
 	width: 125px;
 	height: 32px;
@@ -128,7 +128,7 @@ p {
 }
 .header.active .navbar-brand .logo{
 	margin-top: 22px;
-	background-image: url(../img/black_logo.png);
+	background-image: url(../img/android_logo.svg);
 	display: inline-block;
 	width: 125px;
 	height: 32px;
