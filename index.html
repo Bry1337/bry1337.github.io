@@ -1,177 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edward Bryan Abergas</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow-y: auto; /* Enable vertical scrolling */
-      background: black;
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-
-    .content {
-      position: relative;
-      z-index: 1;
-      min-height: 100%; /* Ensure the content section stretches at least to the screen height */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start; /* Start content from the top */
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-      background: rgba(0, 0, 0, 0.5);
-    }
-
-    .content h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      color: #00ffd5;
-    }
-
-    .content p {
-      font-size: 1.3rem;
-      max-width: 800px;
-      margin-bottom: 2rem;
-    }
-
-    .achievements {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      max-width: 900px;
-    }
-
-    .achievement-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-      width: 280px;
-      text-align: left;
-      box-shadow: 0 0 8px rgba(0, 255, 213, 0.2);
-    }
-
-    .achievement-card::before {
-      content: "★ ";
-      color: #00ffd5;
-    }
-
-    .achievement-card p {
-      margin: 0;
-      font-size: 1rem;
-    }
-
-    .achievement-card a {
-      color: #00ffd5;
-      text-decoration: none;
-    }
-
-    .achievement-card a:hover {
-      text-decoration: underline;
-    }
-
-    .achievements-title {
-      font-size: 1.8rem;
-      color: #00ffd5;
-      margin-bottom: 1rem;
-      text-align: center;
-      width: 100%;
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070914">
+<meta name="description" content="Deep Orbit — independent software development studio.">
+<title>Deep Orbit — Ideas, launched into orbit.</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<canvas id="bg"></canvas>
-<div class="content">
-  <h1>Edward Bryan Abergas</h1>
-  <p>A passionate and results-driven Android Developer with over a decade of experience crafting high-quality, intuitive mobile applications. I specialize in Kotlin, Java, Compose, and Compose Multiplatform with a strong focus on modern UI/UX and scalable architecture. I thrive in collaborative, agile environments where clean code and constant learning drive success.</p>
-
-  <div class="achievements">
-    <div class="achievements-title">Highlights & Achievements</div>
-    <div class="achievement-card"><p>10+ years of professional experience building Android applications.</p></div>
-    <div class="achievement-card"><p><a href="https://www.credential.net/65ed966c-45ad-42d5-9841-ebfd1b45c077?key=68e4cb63255fb84af3ba382a617147fc72f65f073e4db29aa844cf38e09bbb0d" target="_blank">Google Certified Android Developer since 2021.</a></p></div>
-    <div class="achievement-card"><p>Experience working on Robotic Process Automation (RPA) initiatives, contributing from planning to successful deployment.</p></div>
-    <div class="achievement-card"><p>Worked at Samsung Research and other leading technology companies.</p></div>
-    <div class="achievement-card"><p>Expert in Compose Multiplatform, Kotlin, Java, and Jetpack libraries.</p></div>
-    <div class="achievement-card"><p>Maintains clean, scalable codebases across cross-functional teams.</p></div>
-    <div class="achievement-card"><p>Incorporates user feedback into iterative UI/UX improvements.</p></div>
-    <div class="achievement-card"><p>Advocate for continuous learning, mentoring, and clean code principles.</p></div>
-    <div class="achievement-card"><p>Always exploring new technologies to create meaningful digital experiences.</p></div>
-    <div class="achievement-card"><p>Enjoys building tools that improve productivity and developer experience.</p></div>
-  </div>
-</div>
-
-<script>
-  const canvas = document.getElementById("bg");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const nodes = [];
-  const numNodes = 100;
-  const maxDist = 100;
-
-  for (let i = 0; i < numNodes; i++) {
-    nodes.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5
-    });
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = 0; i < numNodes; i++) {
-      const a = nodes[i];
-      a.x += a.vx;
-      a.y += a.vy;
-
-      if (a.x <= 0 || a.x >= canvas.width) a.vx *= -1;
-      if (a.y <= 0 || a.y >= canvas.height) a.vy *= -1;
-
-      ctx.beginPath();
-      ctx.arc(a.x, a.y, 2, 0, Math.PI * 2);
-      ctx.fillStyle = "#00ffd5";
-      ctx.fill();
-
-      for (let j = i + 1; j < numNodes; j++) {
-        const b = nodes[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < maxDist) {
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = `rgba(0, 255, 213, ${1 - dist / maxDist})`;
-          ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-</script>
-</body>
-</html>
+<div class="stars"></div><div class="nebula"></div>
+<header><a class="brand" href="#home"><span class="logo">◉</span> DEEP <b>ORBIT</b></a><button class="menu" aria-label="Toggle navigation">☰</button>
+<nav><a href="#services">Services</a><a href="#work">Selected work</a><a href="#about">About</a><a class="nav-cta" href="#contact">Let's talk ↗</a></nav></header>
+<main>
+<section class="hero wrap" id="home"><div class="hero-copy"><div class="eyebrow"><i></i> INDEPENDENT SOFTWARE STUDIO</div><h1>Ideas, launched<br>into <em>orbit.</em></h1><p>We turn ambitious ideas into useful, reliable digital experiences — from mobile apps to the systems that power them.</p><div class="actions"><a class="button" href="#work">Explore our work <b>↘</b></a><a class="text-link" href="#contact">Start a conversation ↗</a></div><div class="meta"><div><b>01</b><span>Thoughtful by design</span></div><div><b>02</b><span>Built to scale</span></div><div><b>03</b><span>Made for people</span></div></div></div>
+<div class="orbit-art" aria-label="Abstract orbital illustration"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="planet"></div><div class="moon"></div><span class="orbit-label top">SYSTEMS / 01</span><span class="orbit-label bottom">BEYOND THE EXPECTED</span><span class="spark">✧</span></div><div class="scroll">— SCROLL TO EXPLORE</div></section>
+<div class="ticker wrap"><span>THE SPACE BETWEEN <b>WHAT IS</b> AND <b>WHAT COULD BE.</b></span><i></i><small>We help close that distance.</small></div>
+<section class="wrap section" id="services"><div class="heading"><div><label>WHAT WE DO</label><h2>Good ideas need<br><span>good engineering.</span></h2></div><p>A practical, collaborative approach to building digital products — from the first sketch to the details that make software dependable.</p></div>
+<div class="services"><article><small>01 / MOBILE</small><div class="service-icon">▯</div><h3>Mobile applications</h3><p>Native Android and cross-platform experiences designed to feel fast, intuitive, and at home on your users' devices.</p><div class="tags"><span>Android</span><span>Kotlin</span><span>Compose</span></div></article>
+<article><small>02 / ARCHITECTURE</small><div class="service-icon purple">⌘</div><h3>Software architecture</h3><p>Maintainable foundations, reusable components, and clean boundaries that help products evolve without slowing teams down.</p><div class="tags"><span>Clean Architecture</span><span>Modularization</span></div></article>
+<article><small>03 / INTEGRATION</small><div class="service-icon">✳</div><h3>Product engineering</h3><p>Connect services, streamline workflows, and bring product requirements to life with careful implementation and testing.</p><div class="tags"><span>APIs</span><span>Integrations</span><span>Automation</span></div></article></div></section>
+<section class="work"><div class="wrap section" id="work"><div class="heading"><div><label>SELECTED EXPERIENCE</label><h2>Built with purpose.<br><span>Made to matter.</span></h2></div><p>A snapshot of the kinds of products, platforms, and engineering challenges that shape our work.</p></div>
+<div class="projects"><article class="project"><div class="visual logistics"><div class="logistics-route"></div><div class="container-van"><span></span><span></span><span></span><b>CONTAINER</b></div><div class="tracking-point point-a">DISPATCH</div><div class="tracking-point point-b">IN TRANSIT</div><label>CONTAINER / DELIVERY TRACKING</label></div><div class="project-copy"><small>LOGISTICS · TRACKING</small><h3>Every shipment.<br>In clear view.</h3><p>A logistics tracking solution for monitoring container van movements and delivery progress, with shipment status and milestones from dispatch through arrival.</p><div class="tags"><span>Live tracking</span><span>Delivery status</span><span>Logistics</span></div></div><b class="number">01</b></article>
+<article class="project"><div class="visual wallet"><div class="wallet-card"><b>◈</b><i></i><i></i><small>•••• 2048</small></div><label>PAYMENTS / MOBILE</label></div><div class="project-copy"><small>FINTECH · MOBILE</small><h3>Payments that feel<br>effortless.</h3><p>Mobile wallet and payment experiences connecting account information, QR-based flows, and everyday transactions.</p><div class="tags"><span>Kotlin</span><span>REST APIs</span><span>Security</span></div></div><b class="number">02</b></article>
+<article class="project"><div class="visual cycle"><div class="route"></div><b class="pin">⌖</b><label>LIVE LOCATION / RIDE SESSIONS</label></div><div class="project-copy"><small>CONNECTED EXPERIENCES</small><h3>Keep the whole<br>team in view.</h3><p>A cycling companion concept for live ride sessions, location sharing, route visualization, and useful activity details.</p><div class="tags"><span>Maps</span><span>Firebase</span><span>Jetpack Compose</span></div></div><b class="number">03</b></article></div><p class="note">Selected examples reflect project experience and concepts; details can be tailored to the audience and permissions available.</p></div></section>
+<section class="wrap section about" id="about"><div class="about-art"><div class="about-ring"></div><div class="about-ring inner"></div><div class="core">DO</div><span>✦</span><small>CURIOSITY IS THE ENGINE.</small></div><div class="about-copy"><label>A LITTLE ABOUT US</label><h2>Small studio.<br><em>Wide perspective.</em></h2><p>Deep Orbit is a software development studio built around a simple belief: the best technology makes complicated things feel clear.</p><p>We bring hands-on engineering, thoughtful architecture, and a product mindset to every build. No unnecessary complexity — just considered solutions that solve real problems.</p><div class="principles"><div><b>✳</b><p><strong>Clarity over complexity</strong><small>Understand the problem before choosing the tools.</small></p></div><div><b>↗</b><p><strong>Built for the long run</strong><small>Readable, testable software that can keep growing.</small></p></div><div><b>◎</b><p><strong>People at the center</strong><small>Useful experiences for the people who rely on them.</small></p></div></div></div></section>
+<section class="stack"><div class="wrap section"><label>TOOLS OF THE TRADE</label><div class="heading stack-heading"><h2>A modern stack.<br><span>A timeless mindset.</span></h2><p>Tools are selected to fit the problem — never the other way around.</p></div><div class="stack-cloud"><span>Kotlin</span><span>Android</span><span>Jetpack Compose</span><span>Compose Multiplatform</span><span>Java</span><span>MVVM</span><span>Clean Architecture</span><span>Koin</span><span>Hilt</span><span>Coroutines</span><span>Room</span><span>SQLDelight</span><span>Ktor</span><span>Retrofit</span><span>Firebase</span><span>Git</span><span>Material 3</span><span>REST APIs</span><span>Testing</span><span>Three.js</span><span>TypeScript</span><span>HTML / CSS / JS</span></div></div></section>
+<section class="contact wrap section" id="contact"><div class="contact-glow"></div><label><i></i> YOUR NEXT CHAPTER STARTS HERE</label><h2>Have a big idea?<br><em>Let's give it orbit.</em></h2><p>Tell us what you're building, what isn't working, or what you want to explore. Let's figure out the next step together.</p><a class="button" href="mailto:edwardbryan.dev@gmail.com?subject=Let's%20build%20something%20with%20Deep%20Orbit">edwardbryan.dev@gmail.com <b>↗</b></a><footer><span>DEEP ORBIT © <span id="year"></span></span><span>INDEPENDENT BY NATURE. CURIOUS BY DESIGN.</span><a href="#home">BACK TO TOP ↑</a></footer></section>
+</main><script src="script.js"></script></body></html>
